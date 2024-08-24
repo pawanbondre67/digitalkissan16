@@ -3,12 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-  // {
-  //   path: 'login', component:LoginComponent
-  // },
-  // {
-  //   path: '', redirectTo: 'login', pathMatch: 'full'
-  // }
+  {
+    path: '', redirectTo: 'login', pathMatch: 'full'
+  }
 ];
 
 @NgModule({

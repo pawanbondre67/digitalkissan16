@@ -9,6 +9,7 @@ import { FeaturesModule } from './features/features.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+import { SharedModule } from './utility/shared.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { environment } from '../environments/environment';
     CoreModule,
     FeaturesModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
