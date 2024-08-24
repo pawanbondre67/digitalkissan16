@@ -1,0 +1,7 @@
+.btn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.btn:hover, .btn:focus {
+  background-color: #b810c749; /* Darker shade of slate for hover/focus */
+  transform: scale(1); /* Increase size on hover/focus */
+}

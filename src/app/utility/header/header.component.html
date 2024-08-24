@@ -1,0 +1,53 @@
+<div
+  class="w-full flex justify-between px-2 py-2 top-0 left-0 fixed bg-white border-b-2 border-black"
+>
+  <div>
+    <span>Logo</span>
+  </div>
+  <div class="flex gap-4 justify-center text-green-950">
+    <span></span>
+    <span
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-bell cursor-pointer"
+      >
+        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" /></svg></span>
+
+        <div *ngIf="currentUser; else templateName">
+          <div class="rounded-full w-7 h-7 overflow-hidden">
+            <img class="max-w-full max-h-full object-contain" [src]="currentUser.photoURL" alt="">
+          </div>
+         </div>
+
+         <ng-template #templateName>
+          <span><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-user cursor-pointer"
+          >
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+            </svg >
+      </span>
+         </ng-template>
+
+  </div>
+</div>
+
