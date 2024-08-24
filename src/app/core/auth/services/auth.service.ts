@@ -1,20 +1,41 @@
+
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { from, Observable ,map,switchMap, catchError, throwError} from 'rxjs';
+import { from, Observable ,map,switchMap, catchError, throwError, of} from 'rxjs';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { AuthResponse } from '../../model/AuthResponse';
+import { UserService } from './user.service';
+import { UserData } from '../../model/UserData';
+import { User } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private afAuth: AngularFireAuth) { }
+  // user$: Observable<User | null>;
+
+  constructor(private afAuth: AngularFireAuth,private userService: UserService) {
+    // this.user$ = afAuth.authState;
+  }
+
+
 
   signIn(email: string, password: string): Observable<any> {
     return from(this.afAuth.signInWithEmailAndPassword(email, password)).pipe(
       switchMap((userCredential) => {
         const user = userCredential.user;
+        console.log(user);
+        if (user) {
+          const currentData: UserData = {
+            displayName: user.displayName,
+            email: user.email,
+            uid: user.uid,
+            photoURL: user.photoURL
+          };
+          this.userService.setCurrentUser(currentData); // Update user data in the service
+        }
+
         if (user) {
           return from(Promise.all([user.getIdToken(), user.getIdTokenResult()])).pipe(
             map(([idToken, idTokenResult]) : AuthResponse=> ({
@@ -57,6 +78,18 @@ export class AuthService {
     return from(this.afAuth.createUserWithEmailAndPassword(email, password)).pipe(
       switchMap((userCredential) => {
         const user = userCredential.user;
+        console.log(user);
+        if (user) {
+          const currentData: UserData = {
+            displayName: user.displayName,
+            email: user.email,
+            uid: user.uid,
+            photoURL: user.photoURL
+          };
+          this.userService.setCurrentUser(currentData); // Update user data in the service
+        }
+
+
         if (user) {
           return from(Promise.all([user.getIdToken(), user.getIdTokenResult()])).pipe(
             map(([idToken, idTokenResult]) : AuthResponse=> ({
@@ -81,6 +114,17 @@ export class AuthService {
       switchMap((userCredential) => {
         const user = userCredential.user;
         if (user) {
+          const currentData: UserData = {
+            displayName: user.displayName,
+            email: user.email,
+            uid: user.uid,
+            photoURL: user.photoURL
+          };
+          this.userService.setCurrentUser(currentData); // Update user data in the service
+        }
+
+
+        if (user) {
           return from(Promise.all([user.getIdToken(), user.getIdTokenResult()])).pipe(
             map(([idToken, idTokenResult]) :AuthResponse => ({
               idToken: idToken,
@@ -101,7 +145,7 @@ export class AuthService {
     return from(this.afAuth.signOut());
   }
 
-  getAuthState(): Observable<any> {
-    return this.afAuth.authState;
-  }
+
+
+
 }
