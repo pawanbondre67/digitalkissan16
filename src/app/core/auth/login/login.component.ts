@@ -24,7 +24,9 @@ export class LoginComponent {
 
   onGoogleSignIn(){
     this.authservice.signInWIthGoogle().subscribe({
-      next: (res) => console.log('Login successful', res),
+      next: (res) => {console.log('Login successful', res),
+        this.router.navigate(['/home']);
+      },
       error: (err) => console.log('Login error', err)
     });
   }
@@ -52,6 +54,7 @@ export class LoginComponent {
     this.authObs.subscribe({
       next: (res) => {
         console.log('Login successful', res);
+        this.router.navigate(['/home']);
         this.isLoading = false;
       },
       error: (err) => {
